@@ -1,0 +1,17 @@
+<table border="0">
+
+  <tr>
+    <th>Host</th>
+    <th>Ticket</th>
+    <th>Who</th>
+  </tr>
+
+  <% @data.each do |key, value| %>
+    <tr>
+      <td><%= key %></td>
+      <% value.each do |k, v| %>
+        <td><%= v %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

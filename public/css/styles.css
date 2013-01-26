@@ -7,6 +7,9 @@ table, th, td
 {
     border: 0px solid black;
     text-align:center;
+    font-family:"Arial Black", Gadget, sans-serif;
+    font-size:14pt;
+    color:white;
 }
 
 table
@@ -18,10 +21,13 @@ th
     height:50px;
 }
 
-#ticket
-{
-    text-align:center;
-    color:red;
-    font-size:200%;
-    font-family:sans-serif;
+#qa1 { background-color:rgb(19,79,92); }
+#qa2 { background-color:rgb(12,52,61); }
+#qa3 { background-color:rgb(19,79,92); }
+#qa4 { background-color:rgb(12,52,61); }
+
+#ready { background-color:rgb(7,55,99); }
+#live { background-color:rgb(39,78,19); }
+#staging1 { background-color:rgb(152,0,0); }
+#staging2 { background-color:rgb(152,0,0); }
 }

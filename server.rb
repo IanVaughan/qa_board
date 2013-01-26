@@ -1,6 +1,9 @@
 require "sinatra/base"
 require 'json'
 require 'logger'
+require './phase'
+
+@@phase = Phase.new
 
 class Server < Sinatra::Base
   configure :production, :development do
@@ -14,9 +17,6 @@ class Server < Sinatra::Base
   # before { env['rack.errors'] = '~/app.error.log'  }
 
   # set :sessions, true # is this client side?
-
-  HOSTS = %w{QA1 QA2 QA3 QA4 Staging1 Staging2 Production} #symbols?
-  FIELDS = %w{ticket who}
 
   REQUIRED_KEYS = [:host, :ticket, :who]
   get '/update' do # post type type must be json
@@ -33,8 +33,8 @@ class Server < Sinatra::Base
     return unless params.has_key? 'who'
     # logger.debug "/update - updating : #{params['host']}, #{params['ticket']}, #{params['who']}"
 
-    Test.update params['host'], params['ticket'], params['who']
-    Test.data.to_json
+    @@phase.update params['host'], params['ticket'], params['who']
+    @@phase.data.to_json
   end
 
   # get '/update/:host/:ticket/:who' do |host, ticket, who| # post/put/patch?
@@ -50,9 +50,9 @@ class Server < Sinatra::Base
     logger.debug "/ #{params.inspect}"
     if params[:format] == 'json'
       content_type 'application/json'
-      Test.data.to_json
+      @@phase.data.to_json
     else
-      @data = Test.data
+      @data = @@phase.data
       erb :status #, :locals => Test.data
     end
   end
@@ -64,26 +64,5 @@ class Server < Sinatra::Base
       Sinatra: #{Sinatra::VERSION}
       #{session.inspect}
     ENDRESPONSE
-  end
-end
-
-class Test
-  @data = {
-    :Live => {:ticket => 1, :who => "Me"},
-    :Staging1 => {:ticket => 1, :who => "Me"},
-    :Staging2 => {:ticket => 1, :who => "Me"},
-    :QA1 => {:ticket => 1, :who => "Me"},
-    :QA2 => {:ticket => 5678, :who => "You"},
-    :QA3 => {:ticket => 5678, :who => "You"},
-    :QA4 => {:ticket => 5678, :who => "You"},
-  }
-
-  def self.data
-    @data
-  end
-
-  def self.update host, ticket, who
-    return unless @data.has_key? host.to_sym
-    @data[host.to_sym] = {:ticket => ticket, :who => who}
   end
 end

@@ -1,6 +1,5 @@
 require "sinatra/base"
 require 'json'
-# require 'shotgun'
 require 'logger'
 
 class Server < Sinatra::Base

@@ -10,10 +10,10 @@
   </tr>
 
   <% @data.each do |key, value| %>
-    <tr id=<%=key%>>
-      <td id=<%=key%>><%= key %></td>
+    <tr id="<%=key%>">
+      <td id="<%=key%>"><%= key.capitalize %></td>
       <% value.each do |k, v| %>
-        <td id=<%=k%>><%= v %></td>
+        <td id="<%=k%>"><%= v %></td>
       <% end %>
     </tr>
   <% end %>

@@ -47,7 +47,7 @@ class Server < Sinatra::Base
   #   Test.data.to_json
   # end
 
-  get '/.?:format?' do
+  get '/?.?:format?' do
     logger.debug "/ #{params.inspect}"
     if params[:format] == 'json'
       content_type 'application/json'

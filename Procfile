@@ -1,1 +1,1 @@
-web: bundle exec ruby qa_board.rb -p $PORT
+web: bundle exec ruby server.rb -p $PORT

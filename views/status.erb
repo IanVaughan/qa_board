@@ -1,15 +1,15 @@
-<table border="0">
+<table>
   <tr>
-    <th>Host</th>
-    <th>Ticket</th>
-    <th>Who</th>
+    <th id='heading'>Host</th>
+    <th id='heading'>Ticket</th>
+    <th id='heading'>Who</th>
   </tr>
 
   <% @data.each do |key, value| %>
-    <tr>
-      <td><%= key %></td>
+    <tr id=<%=key%>>
+      <td id=<%=key%>><%= key %></td>
       <% value.each do |k, v| %>
-        <td><%= v %></td>
+        <td id=<%=k%>><%= v %></td>
       <% end %>
     </tr>
   <% end %>

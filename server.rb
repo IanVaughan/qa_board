@@ -17,7 +17,7 @@ class Server < Sinatra::Base
   # set :sessions, true # is this client side?
 
   HOSTS = %w{QA1 QA2 QA3 QA4 Staging1 Staging2 Production} #symbols?
-  FIELDS = %w{ticket tester}
+  FIELDS = %w{ticket who}
 
   REQUIRED_KEYS = [:host, :ticket, :who]
   get '/update' do # post type type must be json
@@ -70,8 +70,8 @@ end
 
 class Test
   @data = {
-    :QA1 => {:ticket => 1, :tester => "Me"},
-    :QA2 => {:ticket => 5678, :tester => "You"}
+    :QA1 => {:ticket => 1, :who => "Me"},
+    :QA2 => {:ticket => 5678, :who => "You"},
   }
 
   def self.data
@@ -80,6 +80,6 @@ class Test
 
   def self.update host, ticket, who
     return unless @data.has_key? host.to_sym
-    @data[host.to_sym] = {:ticket => ticket, :tester => who}
+    @data[host.to_sym] = {:ticket => ticket, :who => who}
   end
 end

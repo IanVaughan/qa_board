@@ -1,0 +1,27 @@
+body
+{
+    background-color:#d0e4fe;
+}
+
+table, th, td
+{
+    border: 0px solid black;
+    text-align:center;
+}
+
+table
+{
+    width:100%;
+}
+th
+{
+    height:50px;
+}
+
+#ticket
+{
+    text-align:center;
+    color:red;
+    font-size:200%;
+    font-family:sans-serif;
+}

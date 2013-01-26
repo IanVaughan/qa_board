@@ -70,8 +70,13 @@ end
 
 class Test
   @data = {
+    :Live => {:ticket => 1, :who => "Me"},
+    :Staging1 => {:ticket => 1, :who => "Me"},
+    :Staging2 => {:ticket => 1, :who => "Me"},
     :QA1 => {:ticket => 1, :who => "Me"},
     :QA2 => {:ticket => 5678, :who => "You"},
+    :QA3 => {:ticket => 5678, :who => "You"},
+    :QA4 => {:ticket => 5678, :who => "You"},
   }
 
   def self.data

@@ -28,10 +28,10 @@ class Server < Sinatra::Base
     # f = REQUIRED_KEYS.all? { |required| params.include?(required.to_s) }
     # logger.debug "/update f:#{f}"
     # return unless f
-    return unless params.has_key? 'host'
-    return unless params.has_key? 'ticket'
-    return unless params.has_key? 'who'
     # logger.debug "/update - updating : #{params['host']}, #{params['ticket']}, #{params['who']}"
+    return {missing: 'host'}.to_json unless params.has_key? 'host'
+    return {missing: 'ticket'}.to_json unless params.has_key? 'ticket'
+    return {missing: 'who'}.to_json unless params.has_key? 'who'
 
     @@phase.update params['host'], params['ticket'], params['who']
     @@phase.data.to_json

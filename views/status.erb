@@ -3,12 +3,6 @@
 </div>
 
 <table>
-  <tr>
-    <th id='heading'>Host</th>
-    <th id='heading'>Ticket</th>
-    <th id='heading'>Who</th>
-  </tr>
-
   <% @data.each do |key, value| %>
     <tr id="<%=key%>">
       <td id="<%=key%>"><%= key.capitalize %></td>

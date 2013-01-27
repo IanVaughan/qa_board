@@ -21,6 +21,10 @@ th
     height:50px;
 }
 
+#phase {width:20%;}
+#ticket {width:40%;}
+#who {width:40%;}
+
 #qa1 { background-color:rgb(19,79,92); }
 #qa2 { background-color:rgb(12,52,61); }
 #qa3 { background-color:rgb(19,79,92); }

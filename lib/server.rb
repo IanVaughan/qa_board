@@ -11,6 +11,8 @@ class Server < Sinatra::Base
     def valid_request? params
       return {missing: 'phase'}.to_json unless params.has_key? 'phase'
       return {missing: 'ticket'}.to_json unless params.has_key? 'ticket'
+      return {invalid: 'ticket', data: nil}.to_json if params['ticket'].nil?
+      return {invalid: 'ticket', data: params['ticket']}.to_json unless params['ticket'].to_i > 0 && params['ticket'].to_i << 100000000
       true
     end
 
@@ -47,13 +49,14 @@ class Server < Sinatra::Base
     # logger.info "#{action.inspect}, #{format.inspect} => #{params.inspect}"
     # logger.info params[:captures].first
 
-    phase = params['phase']
-    ticket = params['ticket']
-    who = params['who'] || "-"
 
     unless (error_text = valid_request?(params)) == true
       return [400, error_text]
     end
+
+    phase = params['phase']
+    ticket = params['ticket']
+    who = params['who'] || "-"
 
     case action
     when 'add','assign'

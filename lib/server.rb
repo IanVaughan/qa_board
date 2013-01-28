@@ -43,34 +43,33 @@ class Server < Sinatra::Base
     end
   end
 
-  post '/add/?.?:format?' do
+  # add/assign/remove/rm
+  post %r{/(add|assign|remove|rm)/?.?(json|text)?} do |action, format|
+    # logger.info "#{action.inspect}, #{format.inspect} => #{params.inspect}"
+    # logger.info params[:captures].first
+
+    phase = params['phase']
+    ticket = params['ticket']
+    who = params['who'] || "-"
+
     unless (error_text = valid_request?(params)) == true
-      return error_text
+      return [400, error_text]
     end
 
-    @@phase.add(params['phase'], params['ticket'], params['who'])
-
-    if params[:format] == 'json'
-      content_type :json
-      @@phase.data.to_json
-    elsif params[:format] == 'text'
-      render_text
-    else
-      erb :status, :locals => {phases: @@phase}
+    case action
+    when 'add','assign'
+      @@phase.add(phase, ticket, who)
+    when 'remove', 'rm'
+      @@phase.delete(phase, ticket)
     end
-  end
 
-  post '/remove/?.?:format?' do
-    invalid_text = valid_request?(params, false)
-    return invalid_text unless invalid_text == true
-
-    @@phase.delete(params['phase'], params['ticket'])
-
-    if params[:format] == 'json'
+    case format
+    when 'json'
       content_type :json
       @@phase.data.to_json
-    elsif params[:format] == 'text'
-      render_text
+    when 'text'
+      content_type :text # "text/plain"
+      render_text(params['phase'])
     else
       erb :status, :locals => {phases: @@phase}
     end

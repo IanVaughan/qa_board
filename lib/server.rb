@@ -17,7 +17,6 @@ class Server < Sinatra::Base
     def render_text_board
       text = ''
       @@phase.data.each do |phase, details|
-        text << phase.to_s + " | "
         text << render_text(phase)
         text << "\n"
       end
@@ -25,7 +24,7 @@ class Server < Sinatra::Base
     end
 
     def render_text phase
-      text = ""
+      text = "#{phase.to_s} | "
       @@phase.data[phase.to_sym].each {|d| text << d[:ticket] + " => " + d[:who] + " | " }
       text
     end

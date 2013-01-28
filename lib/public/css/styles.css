@@ -35,8 +35,3 @@ th
 #live { background-color:rgb(39,78,19); }
 #staging1 { background-color:rgb(152,0,0); }
 #staging2 { background-color:rgb(152,0,0); }
-
-div {
-    border: 1px solid;
-    color: red;
-}

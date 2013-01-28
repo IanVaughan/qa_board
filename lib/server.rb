@@ -14,13 +14,19 @@ class Server < Sinatra::Base
       true
     end
 
-    def render_text
+    def render_text_board
       text = ''
       @@phase.data.each do |phase, details|
         text << phase.to_s + " | "
-        details.each {|d| text << d[:ticket] + " => " + d[:who] + " | " }
+        text << render_text(phase)
         text << "\n"
       end
+      text
+    end
+
+    def render_text phase
+      text = ""
+      @@phase.data[phase.to_sym].each {|d| text << d[:ticket] + " => " + d[:who] + " | " }
       text
     end
   end
@@ -31,7 +37,7 @@ class Server < Sinatra::Base
       @@phase.data.to_json
     elsif params[:format] == 'text'
       content_type "text/plain"
-      render_text
+      render_text_board
     else
       erb :status, :locals => {phases: @@phase}
     end

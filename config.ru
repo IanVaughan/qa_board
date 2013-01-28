@@ -1,2 +1,2 @@
-require './server'
-run Server
+require './lib/server'
+run Server.new

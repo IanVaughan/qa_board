@@ -1,0 +1,22 @@
+<div>
+  <h1>QA Fun Board</h1>
+</div>
+
+<table>
+  <% phases.data.each do |phase_type, phase| %>
+    <tr id="<%= phase_type %>">
+      <td id="phase" rowspan="<%= phase.count %>"><%= phase_type %></td>
+      <td id="ticket"><%= phase.first[:ticket] %></td>
+      <td id="who"><%= phase.first[:who] %></td>
+    </tr>
+    <% if phases.queue_size(phase_type) > 1 %>
+      <% phases.data[phase_type].each_with_index do |p, i| %>
+      <% next if i == 0 %>
+        <tr id="<%= phase_type %>">
+          <td id="ticket"><%= p[:ticket] %></td>
+          <td id="who"><%= p[:who] %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  <% end %>
+</table>

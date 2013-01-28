@@ -7,6 +7,7 @@ table, th, td
 {
     border: 0px solid black;
     text-align:center;
+    /*font-size:150%;*/
     font-family:"Arial Black", Gadget, sans-serif;
     font-size:14pt;
     color:white;
@@ -34,4 +35,8 @@ th
 #live { background-color:rgb(39,78,19); }
 #staging1 { background-color:rgb(152,0,0); }
 #staging2 { background-color:rgb(152,0,0); }
+
+div {
+    border: 1px solid;
+    color: red;
 }

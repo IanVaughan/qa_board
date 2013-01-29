@@ -5,15 +5,9 @@ describe Phases do
   let(:default_data) {{:ticket=>'-', :who=>'-'}}
 
   it "returns default data" do
-    phases.data.should == {
-      :qa1=>[default_data],
-      :qa2=>[default_data],
-      :qa3=>[default_data],
-      :qa4=>[default_data],
-      :ready=>[default_data],
-      :staging1=>[default_data],
-      :staging2=>[default_data],
-      :live=>[default_data]}
+    test_hash = {}
+    Phases::PHASE_TYPES.each {|phase| test_hash[phase] = [default_data]}
+    phases.data.should == test_hash
   end
 
   context "adding" do

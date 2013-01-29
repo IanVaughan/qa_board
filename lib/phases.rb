@@ -24,6 +24,7 @@ class Phases
 
   def add phase, ticket, who
     return unless valid_phase_name?(phase)
+    @phases[phase.to_sym].each { |a| return if a[:ticket] == ticket }
     @phases[phase.to_sym] << create(ticket, who)
   end
 

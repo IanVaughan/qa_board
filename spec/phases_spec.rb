@@ -41,6 +41,13 @@ describe Phases do
       phases.add(:qa1, 1234, "Foo").should be_false
       phases.queue_size(:qa1).should == 1
     end
+
+    it "allows same tickets on different phases" do
+      phases.add(:qa1, 1234, "Bob")
+      phases.add(:qa2, 1234, "Bob")
+      phases.queue_size(:qa1).should == 1
+      phases.queue_size(:qa2).should == 1
+    end
   end
 
   context "deleting" do

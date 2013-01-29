@@ -16,6 +16,12 @@ describe Phases do
     end
   end
 
+  it "has a queue" do
+    phase_name = :qa1
+    phases[phase_name].size.should == 0
+    phases[phase_name].should == []
+  end
+
   context "adding" do
     it "adds a new entry" do
       phases.queue_size(:qa1).should == 0

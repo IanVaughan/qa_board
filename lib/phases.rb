@@ -7,6 +7,10 @@ class Phases
     PHASE_TYPES.each {|p| @phases[p] = [] }
   end
 
+  def [](phase_name)
+    @phases[phase_name]
+  end
+
   def queue_size phase
     return unless valid_phase_name?(phase)
     @phases[phase.to_sym].count

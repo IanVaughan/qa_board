@@ -4,32 +4,31 @@ class Phases
 
   def initialize
     @phases = {}
-    PHASE_TYPES.each {|p| @phases[p] = [create] }
+    PHASE_TYPES.each {|p| @phases[p] = [] }
   end
 
-  # This SUCKS! Should be contained within each phase
   def queue_size phase
-    return 0 if @phases[phase.to_sym].count == 1 && @phases[phase.to_sym][0][:ticket] == '-'
     @phases[phase.to_sym].count
   end
 
   def data
     hash = {}
     PHASE_TYPES.each {|p| hash[p] = [] }
-    @phases.each {|phase, d| d.each { |t| hash[phase] << t } }
+    @phases.each do |phase, info|
+      info.each { |fields| hash[phase] << fields }
+      hash[phase] << create if info.empty?
+    end
     hash
   end
 
   def add phase, ticket, who
     return unless valid_phase_name?(phase)
-    @phases[phase.to_sym].delete_at(0) if queue_size(phase) == 0
     @phases[phase.to_sym] << create(ticket, who)
   end
 
   def delete phase, ticket
     return unless valid_phase_name?(phase)
     @phases[phase.to_sym].delete_if {|a| a[:ticket] == ticket }
-    @phases[phase.to_sym] << create if queue_size(phase) == 0
   end
 
   private
@@ -40,5 +39,4 @@ class Phases
   def valid_phase_name?(phase)
     PHASE_TYPES.include?(phase.to_sym) ? true : false
   end
-
 end

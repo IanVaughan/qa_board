@@ -10,6 +10,12 @@ describe Phases do
     phases.data.should == test_hash
   end
 
+  it "has a default queue size of zero" do
+    Phases::PHASE_TYPES.each do |phase_name|
+      phases.queue_size(phase_name).should == 0
+    end
+  end
+
   context "adding" do
     it "adds a new entry" do
       phases.queue_size(:qa1).should == 0

@@ -2,12 +2,9 @@ require 'spec_helper'
 
 describe Phases do
   let(:phases) { Phases.new }
-  # subject { Phases.new }
   let(:default_data) {{:ticket=>'-', :who=>'-'}}
 
-  # its(:data) { should == {:qa1=>[], :qa2=>[], :qa3=>[], :qa4=>[], :ready=>[], :staging1=>[], :staging2=>[], :live=>[]} }
   it "returns default data" do
-    # phases.data.should == {:qa1=>[], :qa2=>[], :qa3=>[], :qa4=>[], :ready=>[], :staging1=>[], :staging2=>[], :live=>[]}
     phases.data.should == {
       :qa1=>[default_data],
       :qa2=>[default_data],

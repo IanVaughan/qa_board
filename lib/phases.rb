@@ -8,6 +8,7 @@ class Phases
   end
 
   def queue_size phase
+    return unless valid_phase_name?(phase)
     @phases[phase.to_sym].count
   end
 

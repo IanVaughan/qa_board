@@ -11,19 +11,14 @@ class Phases
     @phases[phase_name]
   end
 
-  def queue_size phase
-    return unless valid_phase_name?(phase)
-    @phases[phase.to_sym].count
-  end
-
-  def data
+  def to_s
     hash = {}
     PHASE_TYPES.each {|p| hash[p] = [] }
     @phases.each do |phase, info|
       info.each { |fields| hash[phase] << fields }
       hash[phase] << create if info.empty?
     end
-    hash
+    hash.to_s
   end
 
   def add phase, ticket, who

@@ -33,23 +33,19 @@ class Server < Sinatra::Base
   end
 
   get '/?.?:format?' do
-    if params[:format] == 'json'
-      content_type 'application/json'
+    case params[:format]
+    when 'json'
+      content_type :json
       @@phase.data.to_json
-    elsif params[:format] == 'text'
-      content_type "text/plain"
+    when 'text'
+      content_type :text
       render_text_board
     else
       erb :status, :locals => {phases: @@phase}
     end
   end
 
-  # add/assign/remove/rm
   post %r{/(add|assign|remove|rm)/?.?(json|text)?} do |action, format|
-    # logger.info "#{action.inspect}, #{format.inspect} => #{params.inspect}"
-    # logger.info params[:captures].first
-
-
     unless (error_text = valid_request?(params)) == true
       return [400, error_text]
     end
@@ -70,15 +66,11 @@ class Server < Sinatra::Base
       content_type :json
       @@phase.data.to_json
     when 'text'
-      content_type :text # "text/plain"
+      content_type :text
       render_text(params['phase'])
     else
       erb :status, :locals => {phases: @@phase}
     end
-  end
-
-  get '/edit' do
-    # add edit fields and submit/post
   end
 
   get '/_info' do

@@ -7,8 +7,8 @@ describe Phases do
   it "returns default data" do
     test_hash = {}
     Phases::PHASE_TYPES.each {|phase| test_hash[phase] = []}
-    # phases.class.should == Hash
-    phases.to_json.should == test_hash.to_json
+    # phases.class.to_json.should == Hash
+    phases.should == test_hash
   end
 
   it "has a default queue size of zero" do
@@ -27,9 +27,22 @@ describe Phases do
     it "adds a new entry" do
       phases[:qa1].size.should == 0
       phases.add(:qa1, 1234, "Bob")
+      phases.add(:qa1, 1234, "Bob")
       phases[:qa1].size.should == 1
+      phases.size(:qa1).should == 1
       phases[:qa1].should == [{:ticket=>1234, :who=>"Bob"}]
     end
+
+    # it "adds via =" do
+    #   phases[:qa1] = {:ticket=>1234, :who=>"Bob"}
+    #   phases[:qa1].size.should == 1
+    #   phases[:qa1].should == [{:ticket=>1234, :who=>"Bob"}]
+    # end
+    # it "adds via =" do
+    #   phases[:qa1].add(:ticket=>1234, :who=>"Bob")
+    #   phases[:qa1].size.should == 1
+    #   phases[:qa1].should == [{:ticket=>1234, :who=>"Bob"}]
+    # end
 
     it "allows spaces in fields" do
       phases.add(:qa1, "a space", "and here")
@@ -94,6 +107,18 @@ describe Phases do
         # phases[phase_name].size.should == 0
         phases[phase_name].should == [] # be_nil
       end
+    end
+  end
+
+  context "valid?" do
+    if "returns a hash with what was missing"
+      Phases.valid?().should == {missing: [:phase, :ticket]}
+      Phases.valid?({}).should == {missing: [:phase, :ticket]}
+      Phases.valid?({'phase' => "QA1"}).should == {missing: [:ticket]}
+      # Phases.valid?({'phase' => "QA1", 'ticket' => nil}).should == {:invalid=>:ticket, :data=>nil}
+      # Phases.valid?({'phase' => "foo", 'ticket' => 1}).should == {:invalid=>:phase, :data=>"QA1"}
+      # Phases.valid?({'phase' => "QA1", 'ticket' => 1}).should == {}
+      # Phases.valid?({'ticket' => 1}).should == {:invalid=>:ticket, :data=>nil}
     end
   end
 

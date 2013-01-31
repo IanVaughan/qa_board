@@ -7,8 +7,15 @@ require './lib/phases'
 
 class Server < Sinatra::Base
 
+  configure :production, :development do
+    enable :logging
+  end
+
   helpers do
+    REQUIRED = [:phase, :ticket]
     def valid_request? params
+      # res = REQUIRED.each { |k| ({missing: k}) unless params.has_key? k.to_s }
+      hash = {}
       return {missing: 'phase'}.to_json unless params.has_key? 'phase'
       return {missing: 'ticket'}.to_json unless params.has_key? 'ticket'
       return {invalid: 'ticket', data: nil}.to_json if params['ticket'].nil?
@@ -46,9 +53,8 @@ class Server < Sinatra::Base
 
   # add/assign/remove/rm
   post %r{/(add|assign|remove|rm)/?.?(json|text)?} do |action, format|
-    # logger.info "#{action.inspect}, #{format.inspect} => #{params.inspect}"
-    # logger.info params[:captures].first
-
+    logger.info "#{action.inspect}, #{format.inspect} => #{params.inspect}"
+    logger.info params[:captures].first
 
     unless (error_text = valid_request?(params)) == true
       return [400, error_text]
@@ -77,8 +83,11 @@ class Server < Sinatra::Base
     end
   end
 
-  get '/edit' do
-    # add edit fields and submit/post
+  # get '/edit' do
+  #   # add edit fields and submit/post
+  # end
+
+  get '/help' do
   end
 
   get '/_info' do

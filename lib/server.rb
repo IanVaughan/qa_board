@@ -9,20 +9,12 @@ class Server < Sinatra::Base
 
   helpers do
     def valid_request? params
-      return {missing: 'phase'}.to_json unless params.has_key? 'phase'
-      return {missing: 'ticket'}.to_json unless params.has_key? 'ticket'
+      @error_text = {}
+      return {missing: 'phase'} unless params.has_key? 'phase'
+      return {missing: 'ticket'} unless params.has_key? 'ticket'
       return {invalid: 'ticket', data: nil}.to_json if params['ticket'].nil?
       return {invalid: 'ticket', data: params['ticket']}.to_json unless params['ticket'].to_i > 0 && params['ticket'].to_i << 100000000
       true
-    end
-
-    def render_text_board
-      text = ''
-      @@phase.data.each do |phase, details|
-        text << render_text(phase)
-        text << "\n"
-      end
-      text
     end
 
     def render_text phase

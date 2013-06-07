@@ -13,8 +13,11 @@ module PhaseControl
   end
 
   def add phase, ticket, who
+    # puts "add->phase:#{phase}, ticket:#{ticket}, who:#{who}"
+    # phases[phase] << Role.new(phase, ticket, who)
     return unless valid_phase_name?(phase)
     phases[phase.to_sym].each { |a| puts a; return if a[:ticket] == ticket }
+    # phases[phase.to_sym] << create(ticket, who)
     phases[phase.to_sym] << Role.new(ticket, who)
   end
   def delete phase, ticket
@@ -36,6 +39,10 @@ module PhaseControl
     phases[phase]
   end
 
+  # private
+  # def create ticket = '-', who = '-'
+  #   {ticket: ticket, who: who}
+  # end
   def valid_phase_name?(phase)
     PHASE_TYPES.include?(phase.to_sym) ? true : false
   end

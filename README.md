@@ -60,7 +60,6 @@ Whoa, add another :
 
 Wall display
 
-![Wall](http://cl.ly/image/0G1J0I0h0Y2N)
-
+![Wall display](http://f.cl.ly/items/2I312w0A0d3l143Q110O/Screen%20Shot%202013-06-07%20at%2021.30.47.png "Wall display")
 
 [1]: http://hubot.github.com/

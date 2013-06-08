@@ -7,7 +7,7 @@ It allows updating and viewing in Campfire via a [Hubot (GitHub's Campfire bot)]
 
 ## Usage
 
-help
+Get help on commands :
 
     Hubot> hubot qa help
     Your QA Board, at your service! (goto http://0.0.0.0:9292/ for the full screen thingy)
@@ -15,7 +15,7 @@ help
     qa add <phase name> <ticket number> <person> - adds aa item to the board
     qa remove <phase name> <ticket number> - removes an item from the board
 
-info
+Get info about current status :
 
     Hubot> qa info
     qa1 | - => - |
@@ -27,7 +27,7 @@ info
     staging2 | - => - |
     live | - => - |
 
-Adding items
+Adding info :
 
     Hubot> hubot qa add qa1 123 Ian
     Hubot> 200
@@ -42,7 +42,7 @@ Adding items
     staging2 | - => - |
     live | - => - |
 
-another
+Whoa, add another :
 
     Hubot> hubot qa add qa1 567 Foo
     Hubot> 200
@@ -58,5 +58,9 @@ another
     live | - => - |
 
 
+Wall display
 
-[1]:
+![Wall](http://cl.ly/image/0G1J0I0h0Y2N)
+
+
+[1]: http://hubot.github.com/
